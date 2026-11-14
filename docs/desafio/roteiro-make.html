@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roteiro Make — Desafio 01 Guarás</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+/* Visual único da trilha — contraste médio (nem preto pesado, nem cinza lavado) */
+
+:root {
+  --ink: #243044;
+  --mute: #556070;
+  --line: #c9d2dc;
+  --paper: #ffffff;
+  --band: #3d5a80;
+  --signal: #c45c2a;
+  --signal-soft: #fdeee6;
+  --slab: #eef2f6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--paper);
+}
+
+h1 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  margin: 0 0 10px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 17px;
+  margin: 24px 0 8px;
+  color: var(--ink);
+  font-weight: 700;
+  border-left: 4px solid var(--signal);
+  padding-left: 10px;
+}
+
+h3 { font-size: 15px; margin: 14px 0 6px; color: var(--ink); font-weight: 600; }
+p { margin: 0 0 8px; }
+
+.kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal);
+  background: var(--signal-soft);
+  padding: 6px 12px;
+  margin: 0 0 12px;
+  border: none;
+}
+
+.muted { color: var(--mute); }
+
+.cover {
+  padding: 0 0 16px 16px;
+  margin: 0 0 10px;
+  border-left: 5px solid var(--signal);
+  background: transparent;
+}
+
+.box,
+.box.teal,
+.box.wait,
+.box.warn,
+.box.nota,
+.box.alerta {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  border-left: 4px solid var(--band);
+  padding: 12px 14px;
+  margin: 12px 0;
+  background: var(--slab);
+}
+
+.box.alerta,
+.box.warn {
+  background: var(--signal-soft);
+  border-left-color: var(--signal);
+  border-color: #f0d0c0;
+}
+
+.box.wait {
+  background: #fff8e8;
+  border-left-color: #c45c16;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 8px 0 12px;
+}
+
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--band);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr:nth-child(even) td { background: #f7f9fb; }
+
+.frase { font-weight: 700; color: var(--ink); }
+
+footer.note {
+  font-size: 12px;
+  color: var(--mute);
+  margin-top: 28px;
+  padding-top: 12px;
+  border-top: 2px solid var(--band);
+}
+
+ul, ol { margin: 4px 0 10px; padding-left: 18px; }
+code { background: var(--slab); padding: 1px 5px; color: var(--ink); }
+a { color: var(--band); font-weight: 600; }
+
+/* Componentes usados nos mapas da trilha / desafio */
+.mapa {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin: 10px 0 8px;
+}
+
+.mapa .step {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: #fff;
+  overflow: hidden;
+}
+
+.mapa .step.gargalo {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+}
+
+.mapa .num {
+  background: var(--band);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+.mapa .step.gargalo .num { background: var(--signal); }
+
+.mapa .body { padding: 8px; }
+.mapa .title { font-weight: 700; font-size: 12px; margin: 0 0 4px; color: var(--ink); }
+.mapa .work { color: var(--mute); font-size: 11px; margin: 0 0 6px; }
+.mapa .wait {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--band);
+  margin: 0;
+  padding-top: 6px;
+  border-top: 2px solid var(--line);
+}
+.mapa .step.gargalo .wait { color: var(--signal); border-top-color: var(--signal); }
+.mapa .arrow { color: var(--band); font-size: 16px; display: flex; align-items: center; }
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.kpis span,
+.kpis > * {
+  padding: 10px 8px;
+  border: 1px solid var(--line);
+  background: var(--slab);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kpis span:last-child {
+  background: var(--signal-soft);
+  border-color: var(--signal);
+}
+
+.kpis .k { font-weight: 700; letter-spacing: 0.06em; color: var(--mute); font-size: 11px; }
+.kpis .v { font-weight: 700; font-size: 18px; color: var(--ink); font-family: "Source Serif 4", Georgia, serif; }
+
+.fluxo { margin: 8px 0 12px; }
+.fstep, .fdec {
+  border: 1.5px solid var(--band);
+  padding: 8px 10px;
+  margin: 0 auto;
+  max-width: 440px;
+  text-align: center;
+  font-size: 13px;
+  background: #fff;
+}
+.fdec {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+  font-weight: 700;
+}
+.farrow { text-align: center; color: var(--band); font-size: 16px; margin: 2px 0; }
+.fbranch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto 6px;
+}
+.fbranch .lab {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--signal);
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 0.08em;
+}
+
+ol.why { list-style: none; padding-left: 0; counter-reset: why; }
+ol.why li {
+  margin: 0 0 10px;
+  padding-left: 40px;
+  position: relative;
+}
+ol.why li::before {
+  counter-increment: why;
+  content: counter(why);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--band);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen {
+  html {
+    background: linear-gradient(165deg, #e9eef3 0%, #dde5ec 100%);
+    min-height: 100%;
+  }
+  body {
+    max-width: 840px;
+    margin: 28px auto 48px;
+    padding: 32px 36px 40px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(36, 48, 68, 0.1);
+  }
+}
+
+@media print {
+  html, body { background: #fff; box-shadow: none; }
+}
+
+
+  </style>
+</head>
+<body>
+  <p class="kicker">Desafio 01 · automação</p>
+  <h1>Montar o cenário no Make (cerca de 20 minutos)</h1>
+  <p>Uma automação só, ligada ao gargalo: quando o pedido fica “Apto para validação”, o coordenador recebe um e-mail. Conta gratuita do Make chega.</p>
+
+  <div class="box teal">
+    <p class="frase" style="margin:0 0 6px">O que precisa estar aberto</p>
+    <ul style="margin:0">
+      <li>Conta Google (Gmail + Planilhas).</li>
+      <li>Conta no <a href="https://www.make.com" target="_blank" rel="noreferrer">make.com</a>.</li>
+      <li>Os 3 CSV desta pasta.</li>
+    </ul>
+  </div>
+
+  <h2>A. Planilhas no Google Drive (caminho mais simples)</h2>
+  <ol>
+    <li>Abra o ficheiro <code>Guaras-Controle-de-mobilizacoes.xlsx</code> desta pasta (já tem as 3 abas).</li>
+    <li>Arraste-o para o Google Drive → clique com o botão direito → Abrir com → Planilhas Google.</li>
+    <li>Confirme as abas: <code>Mobilizacoes</code>, <code>Treinamentos</code>, <code>FilaCoordenador</code>.</li>
+    <li>Na aba <code>FilaCoordenador</code> deixe a linha do Rafael como histórico. O teste do vídeo usa uma <strong>linha nova</strong>.</li>
+    <li>Compartilhar: qualquer pessoa com o link pode ver. Copie o link.</li>
+  </ol>
+  <p class="muted">Os três ficheiros <code>.csv</code> são o mesmo conteúdo, um por aba — use só se preferir importar à mão.</p>
+  <p class="muted">A aba FilaCoordenador é a “versão visível” do passo 4 do algoritmo. Hoje o estado só muda na planilha geral e ninguém é avisado. No estado futuro, ao ficar Apto nasce uma linha nesta fila — e o Make dispara o e-mail.</p>
+
+  <h2>B. Cenário no Make</h2>
+  <ol>
+    <li>make.com → Create a new scenario.</li>
+    <li>Nome (canto de cima): <code>Aviso ao coordenador quando fica Apto</code>.</li>
+    <li>Clique no círculo grande → pesquise <code>Google Sheets</code> → <strong>Watch New Rows</strong>.</li>
+    <li>Create a connection → entre com a mesma conta Google da planilha → permitir acesso.</li>
+    <li>Spreadsheet: <code>Guarás — Controle de mobilizações</code>.</li>
+    <li>Sheet: <code>FilaCoordenador</code>.</li>
+    <li>Table contains headers: Yes.</li>
+    <li>Limit: 1. Guarde o módulo (OK / Save).</li>
+    <li>Clique na bolinha à direita do módulo Sheets → Add a filter.</li>
+    <li>Label: <code>Só Apto para validação</code>.</li>
+    <li>Condition: campo <code>Status</code> → <strong>Equal to</strong> → texto <code>Apto para validação</code>. Exato, com acento.</li>
+    <li>À direita do filtro → adicione <code>Gmail</code> → <strong>Send an Email</strong>.</li>
+    <li>Connection: a mesma conta Google.</li>
+    <li>To: o <strong>seu</strong> Gmail (no vídeo você é o coordenador e mostra a caixa de entrada).</li>
+    <li>Subject (copie):</li>
+  </ol>
+  <div class="box">
+    <p style="margin:0"><code>Apto para validação: {{Nome}} — {{ObraDestino}}</code></p>
+    <p class="muted" style="margin:6px 0 0">Clique em Nome e ObraDestino nos campos que o Make mostrou do Sheets. Não digite as chaves à mão se o painel oferecer o item.</p>
+  </div>
+  <p>Content (copie e mapeie os campos iguais):</p>
+  <div class="box">
+<pre style="white-space:pre-wrap;margin:0;font-family:inherit;">A solicitação ficou pronta para a sua validação.
+
+Nome: {{Nome}}
+Matrícula: {{Matricula}}
+Função: {{Funcao}}
+Obra: {{ObraDestino}}
+Estado: {{Status}}
+
+Treinamentos:
+- {{Treinamento1}}: {{T1}}
+- {{Treinamento2}}: {{T2}}
+- {{Treinamento3}}: {{T3}}
+
+Pode validar sem abrir a planilha geral no horário de costume.</pre>
+  </div>
+  <ol start="16">
+    <li>Save no módulo Gmail.</li>
+    <li>Save no cenário (disquete / Ctrl+S).</li>
+  </ol>
+
+  <h2>C. Teste (obrigatório antes do vídeo)</h2>
+  <ol>
+    <li>No Make: botão <strong>Run once</strong> (rodar uma vez). O cenário fica à espera.</li>
+    <li>Na aba <code>FilaCoordenador</code>, na primeira linha vazia, cole esta linha de teste:</li>
+  </ol>
+  <table>
+    <tr><th>Coluna</th><th>Valor de teste</th></tr>
+    <tr><td>ID</td><td>2</td></tr>
+    <tr><td>DataEntradaFila</td><td>data e hora de agora</td></tr>
+    <tr><td>Nome</td><td>Carla Nunes</td></tr>
+    <tr><td>Matricula</td><td>4601</td></tr>
+    <tr><td>Funcao</td><td>Eletricista</td></tr>
+    <tr><td>ObraDestino</td><td>Unidade Industrial Norte</td></tr>
+    <tr><td>Status</td><td>Apto para validação</td></tr>
+    <tr><td>Treinamento1 / T1</td><td>Integração de Segurança da Obra / Válido</td></tr>
+    <tr><td>Treinamento2 / T2</td><td>Trabalho em Altura / Válido</td></tr>
+    <tr><td>Treinamento3 / T3</td><td>Segurança em Ferramentas Elétricas / Válido</td></tr>
+  </table>
+  <ol start="3">
+    <li>Volte ao Make. O módulo Sheets deve ficar verde e o Gmail também.</li>
+    <li>Abra o Gmail. Assunto: <code>Apto para validação: Carla Nunes — Unidade Industrial Norte</code>.</li>
+    <li>Se não rodar: no Sheets o Status tem de estar escrito exatamente <code>Apto para validação</code>. Depois, Run once de novo.</li>
+    <li>Quando funcionar: Scheduling → On (a cada 15 min no plano grátis chega; no vídeo use sempre Run once).</li>
+  </ol>
+
+  <div class="box warn">
+    <p class="frase" style="margin:0 0 6px">Não faça no vídeo</p>
+    <p style="margin:0">Não mostre senha. Não ligue outros módulos. Não automatize contratação nem certificado. Uma linha nova na fila + um e-mail é a prova do gargalo.</p>
+  </div>
+
+  <h2>D. Links para colar no estudo de caso e no formulário</h2>
+  <ul>
+    <li>Planilha Google (qualquer pessoa com o link pode ver).</li>
+    <li>Cenário Make: abra o cenário → copie a URL da barra.</li>
+    <li>Vídeo YouTube não listado (depois da gravação).</li>
+  </ul>
+</body>
+</html>

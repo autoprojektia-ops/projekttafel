@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roteiro do vídeo — Desafio 01</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+/* Visual único da trilha — contraste médio (nem preto pesado, nem cinza lavado) */
+
+:root {
+  --ink: #243044;
+  --mute: #556070;
+  --line: #c9d2dc;
+  --paper: #ffffff;
+  --band: #3d5a80;
+  --signal: #c45c2a;
+  --signal-soft: #fdeee6;
+  --slab: #eef2f6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--paper);
+}
+
+h1 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 26px;
+  margin: 0 0 10px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+h2 {
+  font-size: 17px;
+  margin: 24px 0 8px;
+  color: var(--ink);
+  font-weight: 700;
+  border-left: 4px solid var(--signal);
+  padding-left: 10px;
+}
+
+h3 { font-size: 15px; margin: 14px 0 6px; color: var(--ink); font-weight: 600; }
+p { margin: 0 0 8px; }
+
+.kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal);
+  background: var(--signal-soft);
+  padding: 6px 12px;
+  margin: 0 0 12px;
+  border: none;
+}
+
+.muted { color: var(--mute); }
+
+.cover {
+  padding: 0 0 16px 16px;
+  margin: 0 0 10px;
+  border-left: 5px solid var(--signal);
+  background: transparent;
+}
+
+.box,
+.box.teal,
+.box.wait,
+.box.warn,
+.box.nota,
+.box.alerta {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  border-left: 4px solid var(--band);
+  padding: 12px 14px;
+  margin: 12px 0;
+  background: var(--slab);
+}
+
+.box.alerta,
+.box.warn {
+  background: var(--signal-soft);
+  border-left-color: var(--signal);
+  border-color: #f0d0c0;
+}
+
+.box.wait {
+  background: #fff8e8;
+  border-left-color: #c45c16;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 8px 0 12px;
+}
+
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--band);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr:nth-child(even) td { background: #f7f9fb; }
+
+.frase { font-weight: 700; color: var(--ink); }
+
+footer.note {
+  font-size: 12px;
+  color: var(--mute);
+  margin-top: 28px;
+  padding-top: 12px;
+  border-top: 2px solid var(--band);
+}
+
+ul, ol { margin: 4px 0 10px; padding-left: 18px; }
+code { background: var(--slab); padding: 1px 5px; color: var(--ink); }
+a { color: var(--band); font-weight: 600; }
+
+/* Componentes usados nos mapas da trilha / desafio */
+.mapa {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin: 10px 0 8px;
+}
+
+.mapa .step {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: #fff;
+  overflow: hidden;
+}
+
+.mapa .step.gargalo {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+}
+
+.mapa .num {
+  background: var(--band);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+.mapa .step.gargalo .num { background: var(--signal); }
+
+.mapa .body { padding: 8px; }
+.mapa .title { font-weight: 700; font-size: 12px; margin: 0 0 4px; color: var(--ink); }
+.mapa .work { color: var(--mute); font-size: 11px; margin: 0 0 6px; }
+.mapa .wait {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--band);
+  margin: 0;
+  padding-top: 6px;
+  border-top: 2px solid var(--line);
+}
+.mapa .step.gargalo .wait { color: var(--signal); border-top-color: var(--signal); }
+.mapa .arrow { color: var(--band); font-size: 16px; display: flex; align-items: center; }
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.kpis span,
+.kpis > * {
+  padding: 10px 8px;
+  border: 1px solid var(--line);
+  background: var(--slab);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kpis span:last-child {
+  background: var(--signal-soft);
+  border-color: var(--signal);
+}
+
+.kpis .k { font-weight: 700; letter-spacing: 0.06em; color: var(--mute); font-size: 11px; }
+.kpis .v { font-weight: 700; font-size: 18px; color: var(--ink); font-family: "Source Serif 4", Georgia, serif; }
+
+.fluxo { margin: 8px 0 12px; }
+.fstep, .fdec {
+  border: 1.5px solid var(--band);
+  padding: 8px 10px;
+  margin: 0 auto;
+  max-width: 440px;
+  text-align: center;
+  font-size: 13px;
+  background: #fff;
+}
+.fdec {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+  font-weight: 700;
+}
+.farrow { text-align: center; color: var(--band); font-size: 16px; margin: 2px 0; }
+.fbranch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto 6px;
+}
+.fbranch .lab {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--signal);
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 0.08em;
+}
+
+ol.why { list-style: none; padding-left: 0; counter-reset: why; }
+ol.why li {
+  margin: 0 0 10px;
+  padding-left: 40px;
+  position: relative;
+}
+ol.why li::before {
+  counter-increment: why;
+  content: counter(why);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--band);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen {
+  html {
+    background: linear-gradient(165deg, #e9eef3 0%, #dde5ec 100%);
+    min-height: 100%;
+  }
+  body {
+    max-width: 840px;
+    margin: 28px auto 48px;
+    padding: 32px 36px 40px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(36, 48, 68, 0.1);
+  }
+}
+
+@media print {
+  html, body { background: #fff; box-shadow: none; }
+}
+
+
+  </style>
+</head>
+<body>
+  <p class="kicker">Desafio 01 · YouTube não listado</p>
+  <h1>Vídeo curto da automação funcionando</h1>
+  <p>Duração alvo: 60 a 90 segundos. Gravar a tela. Falar o texto abaixo (ou ler). Sem cortes sofisticados.</p>
+
+  <div class="box teal">
+    <p class="frase" style="margin:0 0 6px">Antes de apertar gravar</p>
+    <ul style="margin:0;padding-left:18px">
+      <li>O teste do Make já funcionou uma vez (e-mail da Carla Nunes chegou).</li>
+      <li>Gmail e Make e a aba FilaCoordenador visíveis. Fonte grande.</li>
+      <li>Fechar abas pessoais. Não mostrar outras conversas.</li>
+    </ul>
+  </div>
+
+  <h2>Enquadramento (3 momentos)</h2>
+  <table>
+    <tr><th>Tempo</th><th>Tela</th><th>O que fazer</th></tr>
+    <tr><td>0:00–0:20</td><td>Estudo de caso (mapa) ou a planilha Mobilizacoes</td><td>Dizer o processo, o gargalo e o número 67%.</td></tr>
+    <tr><td>0:20–0:55</td><td>Make: Run once → Sheets: linha nova</td><td>Mostrar gatilho, filtro, ação. Inserir a linha de teste.</td></tr>
+    <tr><td>0:55–1:20</td><td>Gmail com o e-mail aberto</td><td>Mostrar assunto e corpo. Fechar com a frase da direção.</td></tr>
+  </table>
+
+  <h2>Texto para falar</h2>
+  <p class="fala"><strong>0:00.</strong> Este é o processo de liberação de colaborador da Manutenção Guarás. Depois que os treinamentos marcam “Apto para validação”, ninguém avisa o coordenador. No caso do Rafael Mendes essa espera foi 17 horas e 46 minutos — 67% do lead time.</p>
+  <p class="fala"><strong>0:20.</strong> A direção da solução: quando o estado muda, quem precisa agir recebe um aviso com o pedido visível. No Make o gatilho é uma linha nova na fila do coordenador. A condição é o estado igual a “Apto para validação”. A ação é um e-mail.</p>
+  <p class="fala"><strong>0:40.</strong> Vou rodar uma vez. Entro com um pedido apto, como se os três treinamentos tivessem acabado de ser conferidos. (Clique Run once. Vá à planilha. Cole a linha da Carla Nunes. Volte ao Make até ficar verde.)</p>
+  <p class="fala"><strong>0:55.</strong> O e-mail chegou. Nome, matrícula, obra e estado. O coordenador não precisa abrir a planilha no dia seguinte de manhã. No caso Rafael, era exatamente nesse ponto que o pedido parava a noite inteira.</p>
+
+  <h2>Como publicar</h2>
+  <ol>
+    <li>Windows: Win+G (Xbox Game Bar) ou Gravação de tela do PowerPoint. Ou OBS.</li>
+    <li>YouTube Studio → Criar → Enviar vídeo.</li>
+    <li>Visibilidade: <strong>Não listado</strong> (não público, não privado).</li>
+    <li>Título: <code>Desafio 01 — Make — Liberação de colaborador — Manutenção Guarás</code></li>
+    <li>Descrição: <code>Automação simples do gargalo: gatilho (fila Apto), condição (status), ação (e-mail ao coordenador). Trilhas 2026.</code></li>
+    <li>Copie o link. Cole no Google Docs (final do estudo de caso) e no formulário da trilha, em Links do Projeto.</li>
+  </ol>
+
+  <h2>Se o e-mail não chegar na hora</h2>
+  <p>Pare a gravação. Confira o filtro (acento em validação). Run once outra vez. Só grave de novo quando o Gmail já tiver o teste. O vídeo tem de mostrar a automação funcionando — não o erro.</p>
+</body>
+</html>
