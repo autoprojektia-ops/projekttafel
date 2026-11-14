@@ -5,30 +5,17 @@
 credentials.json
 **/secrets/**
 
-# Sistema
+# Sistema / editores
 .DS_Store
 Thumbs.db
 Desktop.ini
-
-# Editores
 .vscode/
 .idea/
 *.log
 node_modules/
 
-# Não publicar no GitHub (fica só no PC)
+# Não publicar (permanece no PC)
 css/
 js/
 index.html
-docs/arquitetura/
-docs/escola-professor/
-docs/lowcode/
-docs/negocio/
-docs/rpa/
-docs/desafios/
-docs/README.md
-docs/visual-canteiro.css
-
-# Vídeo/gravação particular
-docs/desafio/*.mp4
-docs/desafio/**/*.mp4
+docs/

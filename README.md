@@ -1,7 +1,7 @@
-# Automação Make — Mobilização Guarás
+# Integration Google Sheets (Make.com)
 
-Automação no **Make.com** para conferência de treinamentos e liberação de colaborador para obra (Desafio 01).
+Cenário Make: novas linhas na planilha → filtro **Apto para validação** → e-mail Gmail.
 
-Os arquivos do projeto estão em `docs/desafio/`.
+## Arquivo
 
-**Vídeo:** https://youtu.be/QP0ZoiozqiE
+`make/Integration-Google-Sheets.blueprint.json` — blueprint exportado do Make (pode importar em outra conta Make).
